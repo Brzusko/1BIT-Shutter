@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/ClientSpawner/UI/Play.gd" type="Script" id=1]
+
+[node name="Play" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpawnForm" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 24.0
+
+[node name="Prompt" type="LineEdit" parent="SpawnForm"]
+margin_right = 58.0
+margin_bottom = 24.0
+max_length = 1
+
+[node name="SpawnBTN" type="Button" parent="SpawnForm"]
+margin_left = 62.0
+margin_right = 163.0
+margin_bottom = 24.0
+text = "Create Clients"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="SpawnForm/Prompt" to="." method="_on_Prompt_text_changed"]
+[connection signal="pressed" from="SpawnForm/SpawnBTN" to="." method="_on_SpawnBTN_pressed"]
