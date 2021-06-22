@@ -1,9 +1,107 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/UI/MainMenu.cs" type="Script" id=1]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
+"_edit_horizontal_guides_": [ 245.723, 538.324 ],
 "_edit_use_anchors_": false,
-"_edit_vertical_guides_": [ 198.613, 834.784 ]
+"_edit_vertical_guides_": [ 198.613, 834.784, 317.541, 725.294 ]
+}
+
+[node name="MainContainer" type="Panel" parent="."]
+anchor_left = 0.191
+anchor_right = 0.815
+anchor_bottom = 0.983
+margin_left = 0.415985
+margin_right = 2.43994
+margin_bottom = 13.2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="MainContainer"]
+anchor_left = 0.011
+anchor_top = 0.153
+anchor_right = 1.0
+anchor_bottom = 0.301
+margin_left = -0.0510006
+margin_top = 42.741
+margin_right = -7.0
+margin_bottom = -32.503
+text = "1Bit-Shutter"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FormWrapper" type="MarginContainer" parent="MainContainer"]
+anchor_left = 0.191
+anchor_top = 0.397
+anchor_right = 0.819
+anchor_bottom = 0.883
+margin_left = -0.431007
+margin_top = 5.60899
+margin_right = -0.979065
+margin_bottom = 3.55096
+custom_constants/margin_top = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FormContainer" type="VBoxContainer" parent="MainContainer/FormWrapper"]
+margin_right = 402.0
+margin_bottom = 291.0
+custom_constants/separation = 15
+
+[node name="Header" type="Label" parent="MainContainer/FormWrapper/FormContainer"]
+margin_right = 402.0
+margin_bottom = 14.0
+text = "Connect to server"
+align = 1
+
+[node name="NameInput" type="VBoxContainer" parent="MainContainer/FormWrapper/FormContainer"]
+margin_top = 29.0
+margin_right = 402.0
+margin_bottom = 71.0
+
+[node name="Title" type="Label" parent="MainContainer/FormWrapper/FormContainer/NameInput"]
+margin_right = 402.0
+margin_bottom = 14.0
+text = "Nickname"
+
+[node name="NameField" type="LineEdit" parent="MainContainer/FormWrapper/FormContainer/NameInput"]
+margin_top = 18.0
+margin_right = 402.0
+margin_bottom = 42.0
+placeholder_text = "Your nickname"
+
+[node name="ServerAddress" type="VBoxContainer" parent="MainContainer/FormWrapper/FormContainer"]
+margin_top = 86.0
+margin_right = 402.0
+margin_bottom = 128.0
+
+[node name="Title" type="Label" parent="MainContainer/FormWrapper/FormContainer/ServerAddress"]
+margin_right = 402.0
+margin_bottom = 14.0
+text = "Server address"
+
+[node name="ServerField" type="LineEdit" parent="MainContainer/FormWrapper/FormContainer/ServerAddress"]
+margin_top = 18.0
+margin_right = 402.0
+margin_bottom = 42.0
+placeholder_text = "ws://127.0.0.1:7171"
+
+[node name="ConnectBTN" type="Button" parent="MainContainer/FormWrapper/FormContainer"]
+margin_left = 169.0
+margin_top = 143.0
+margin_right = 233.0
+margin_bottom = 163.0
+size_flags_horizontal = 4
+text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
 }
