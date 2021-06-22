@@ -7,10 +7,10 @@ public class Network : Node
 	public bool IsClientConnected {
 		get => _network_peer.GetConnectionStatus() > 0;
 	}
-	private static string _debug_address = "ws://127.0.0.1:7171";
-	private static string _debug_client_name = "Zdzisiek";
+	public const string _debug_address = "ws://127.0.0.1:7171";
+	public const string _debug_client_name = "Zdzisiek";
 	private WebSocketClient _network_peer = new WebSocketClient();
-	private void CreateClient() {
+	private void CreateClient(string url = _debug_address) {
 		var error = _network_peer.ConnectToUrl(_debug_address, null, true, null);
 		_network_peer.Connect("connection_succeeded", this, "OnConnection");
 		if (error != Error.Ok) return;
@@ -31,7 +31,7 @@ public class Network : Node
 
 	#region RPCs
 	public void SendCredentials() {
-		RpcId(1, "ReciveClientCredentials", new Credentials{
+		RpcId(1, "ReciveClientCredentials", new Credentials {
 			ClientName = _debug_client_name,
 		}.ToGodotDict());
 	}
