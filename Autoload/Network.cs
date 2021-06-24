@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using bit_shuter.Autoload.Structs;
 
@@ -6,6 +7,9 @@ public class Network : Node
 {	
 	[Signal]
 	public delegate void RequestUIChange(string className);
+
+	[Signal]
+	public delegate void LobbyStateChanged(Dictionary<string, object> lobbyState);
 	public bool IsClientConnected {
 		get => _network_peer.GetConnectionStatus() > 0;
 	}
@@ -35,13 +39,6 @@ public class Network : Node
 
 
 	#region RPCs
-	public void SendCredentials() {
-		RpcId(1, "ReciveClientCredentials", new Credentials {
-			ClientName = _userName,
-		}.ToGodotDict());
-	}
-	
-	public void ClockSyncFinished() => RpcId(1, "ClientClockSyncFinished");
 
 	[Remote]
 	public void StartClockSync() {
@@ -50,7 +47,20 @@ public class Network : Node
 	}
 
 	[Remote]
+	public void ReciveLobbyState(Dictionary<string, object> lobbyState) => EmitSignal(nameof(LobbyStateChanged), lobbyState);
+
+	[Remote]
 	public void ChangeUIScene(string className) => EmitSignal(nameof(RequestUIChange), className);
+
+	public void SendReadyState(bool state) => RpcId(1, "ReciveReadyState", state);
+	public void SendCredentials() {
+		RpcId(1, "ReciveClientCredentials", new Credentials {
+			ClientName = _userName,
+		}.ToGodotDict());
+	}
+	
+	public void LobbyLoaded() => RpcId(1, "ClientLoadedLobby");
+	public void ClockSyncFinished() => RpcId(1, "ClientClockSyncFinished");
 	#endregion
 
 	#region Virutal Methods

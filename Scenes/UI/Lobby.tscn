@@ -9,6 +9,9 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+_readyBTNPath = NodePath("Buttons/ReadyBTN")
+_playersContainerPath = NodePath("PlayersContainer/Players/PlayersHolder")
+_gameStateInfoPath = NodePath("CenterContainer/GameStateInfo")
 
 [node name="PlayersContainer" type="MarginContainer" parent="."]
 anchor_left = 1.0
@@ -37,13 +40,39 @@ margin_top = 18.0
 margin_right = 154.0
 margin_bottom = 18.0
 
-[node name="DisconnectBTN" type="Button" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -22.0455
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 0.998
+anchor_bottom = 0.998
+margin_top = -31.8
 margin_right = 84.0
-margin_bottom = -2.04547
+margin_bottom = 0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisconnectBTN" type="Button" parent="Buttons"]
+margin_right = 84.0
+margin_bottom = 32.0
 text = "Disconnect"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ReadyBTN" type="Button" parent="Buttons"]
+margin_left = 88.0
+margin_right = 224.0
+margin_bottom = 32.0
+text = "Change Ready State"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 899.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameStateInfo" type="Label" parent="CenterContainer"]
+margin_left = 449.0
+margin_right = 449.0
+margin_bottom = 14.0
+align = 1
