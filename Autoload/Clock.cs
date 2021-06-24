@@ -20,6 +20,8 @@ public class Clock : Node
     private readonly int _timer_max_iterations = 5;
     private Timer _timer;
 
+    private bool _isSynced = false;
+
     private void CreateTimer() {
         _timer = new Timer();
         _timer.WaitTime = 1;
@@ -41,10 +43,11 @@ public class Clock : Node
 
     [Remote]
     public void RecivePong(ulong serverTime, ulong clientTime) {
-        if(_latenacyList.Count == 0) {
+        if(!_isSynced) {
             Time = serverTime + (OS.GetSystemTimeMsecs() - clientTime) / 2;
             _rtt = (OS.GetSystemTimeMsecs() - clientTime) / 2;
             GetNode<Network>("/root/Network").ClockSyncFinished();
+            _isSynced = true;
         }
 
         var letanecy = (OS.GetSystemTimeMsecs() - clientTime) / 2;

@@ -4,6 +4,8 @@ using bit_shuter.Autoload.Structs;
 
 public class Network : Node
 {	
+	[Signal]
+	public delegate void RequestUIChange(string className);
 	public bool IsClientConnected {
 		get => _network_peer.GetConnectionStatus() > 0;
 	}
@@ -39,9 +41,7 @@ public class Network : Node
 		}.ToGodotDict());
 	}
 	
-	public void ClockSyncFinished() {
-		
-	}
+	public void ClockSyncFinished() => RpcId(1, "ClientClockSyncFinished");
 
 	[Remote]
 	public void StartClockSync() {
@@ -49,6 +49,8 @@ public class Network : Node
 		clock.StartClockSyncing();
 	}
 
+	[Remote]
+	public void ChangeUIScene(string className) => EmitSignal(nameof(RequestUIChange), className);
 	#endregion
 
 	#region Virutal Methods

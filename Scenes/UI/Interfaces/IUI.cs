@@ -4,6 +4,7 @@ namespace bit_shuter.Scenes.UI.Interfaces
 {
     public interface IUI
     {
-         NodePath NextUIToDisplay { get; }
+         void Active();
+         void Disactive();
     }
 }

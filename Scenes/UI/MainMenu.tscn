@@ -11,14 +11,16 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 198.613, 834.784, 317.541, 725.294 ]
 }
+_nameFiledPath = NodePath("MainContainer/FormWrapper/FormContainer/NameInput/NameField")
+_serverFieldPath = NodePath("MainContainer/FormWrapper/FormContainer/ServerAddress/ServerField")
+_connectBTNPath = NodePath("MainContainer/FormWrapper/FormContainer/ConnectBTN")
 
 [node name="MainContainer" type="Panel" parent="."]
-anchor_left = 0.191
-anchor_right = 0.815
-anchor_bottom = 0.983
-margin_left = 0.415985
-margin_right = 2.43994
-margin_bottom = 13.2
+anchor_left = 0.001
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.024
+margin_bottom = 3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -53,52 +55,54 @@ __meta__ = {
 }
 
 [node name="FormContainer" type="VBoxContainer" parent="MainContainer/FormWrapper"]
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 291.0
 custom_constants/separation = 15
 
 [node name="Header" type="Label" parent="MainContainer/FormWrapper/FormContainer"]
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 14.0
 text = "Connect to server"
 align = 1
 
 [node name="NameInput" type="VBoxContainer" parent="MainContainer/FormWrapper/FormContainer"]
 margin_top = 29.0
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 71.0
 
 [node name="Title" type="Label" parent="MainContainer/FormWrapper/FormContainer/NameInput"]
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 14.0
 text = "Nickname"
 
 [node name="NameField" type="LineEdit" parent="MainContainer/FormWrapper/FormContainer/NameInput"]
 margin_top = 18.0
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 42.0
+text = "Wojtek"
 placeholder_text = "Your nickname"
 
 [node name="ServerAddress" type="VBoxContainer" parent="MainContainer/FormWrapper/FormContainer"]
 margin_top = 86.0
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 128.0
 
 [node name="Title" type="Label" parent="MainContainer/FormWrapper/FormContainer/ServerAddress"]
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 14.0
 text = "Server address"
 
 [node name="ServerField" type="LineEdit" parent="MainContainer/FormWrapper/FormContainer/ServerAddress"]
 margin_top = 18.0
-margin_right = 402.0
+margin_right = 641.0
 margin_bottom = 42.0
+text = "ws://127.0.0.1:7171"
 placeholder_text = "ws://127.0.0.1:7171"
 
 [node name="ConnectBTN" type="Button" parent="MainContainer/FormWrapper/FormContainer"]
-margin_left = 169.0
+margin_left = 288.0
 margin_top = 143.0
-margin_right = 233.0
+margin_right = 352.0
 margin_bottom = 163.0
 size_flags_horizontal = 4
 text = "Connect"

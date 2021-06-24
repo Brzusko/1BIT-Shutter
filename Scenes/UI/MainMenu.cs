@@ -4,12 +4,6 @@ using bit_shuter.Scenes.UI.Interfaces;
 
 public class MainMenu : Control, IUI
 {
-    public NodePath NextUIToDisplay { 
-        get => _nextUI; 
-        private set => _nextUI = value; 
-    }
-    [Export]
-    private NodePath _nextUI;
     [Export]
     private NodePath _nameFiledPath;
     [Export]
@@ -33,4 +27,7 @@ public class MainMenu : Control, IUI
         if(_nameField.Text.Length < 2 && _serverField.Text.Length < 5) return;
         GetNode<Network>("/root/Network").CreateClient(_serverField.Text, _nameField.Text);
     }
+
+    public void Active() => Show();
+    public void Disactive() => Hide();
 }
