@@ -36,6 +36,18 @@ public class Clock : Node
         _timer = null;
     }
 
+    private void RestartClock() {
+        DestroyTimer();
+        SetPhysicsProcess(false);
+        _latenacyList.Clear();
+        _rtt = 0;
+        _timer_iteration = 0;
+        _time = 0;
+        _reminder = 0;
+        _deltaLatenacy = 0;
+        _isSynced = false;
+    }
+
     public void SendPing() {
         RpcId(1, "RecivePing", OS.GetSystemTimeMsecs());
         _timer_iteration++;
@@ -71,7 +83,12 @@ public class Clock : Node
         CreateTimer();
         SetPhysicsProcess(true);
     }
-    public override void _Ready() => SetPhysicsProcess(false);
+    public override void _Ready() {
+        SetPhysicsProcess(false);
+        GetNode<Network>("/root/Network").Connect("DisconnectedFromServer", this, nameof(RestartClock));
+    }
+
+    public void OnDisconnect() => RestartClock();
 
     public override void _PhysicsProcess(float delta)
     {

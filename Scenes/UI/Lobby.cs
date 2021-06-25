@@ -9,6 +9,7 @@ public class Lobby : Control, IUI
 	private Button _readyBTN;
 	private VBoxContainer _playersContainer;
 	private Label _gameStateInfo;
+	private Button _disconnectBTN;
 	private Network _network;
     private bool _isPlayerReady = false;
 
@@ -18,15 +19,21 @@ public class Lobby : Control, IUI
 	private NodePath _playersContainerPath;
 	[Export]
 	private NodePath _gameStateInfoPath;
+	[Export]
+	private NodePath _disconnectBTNPath;
 	public void Active() {
 		_network = GetNode<Network>("/root/Network");
 		_network.Connect("LobbyStateChanged", this, nameof(OnLobbyStateChanged));
         _readyBTN.Connect("pressed", this, nameof(OnReadyBTNClick));
+		_disconnectBTN.Connect("pressed", this, nameof(OnDisconnectBTNClick));
 		_network.LobbyLoaded();
 		Show();
 	}
 
 	public void Disactive() {
+		_network.Disconnect("LobbyStateChanged", this, nameof(OnLobbyStateChanged));
+        _readyBTN.Disconnect("pressed", this, nameof(OnReadyBTNClick));
+		_disconnectBTN.Disconnect("pressed", this, nameof(OnDisconnectBTNClick));
 		_network = null;
 		Hide();
 	}
@@ -36,12 +43,15 @@ public class Lobby : Control, IUI
 		_readyBTN = GetNode<Button>(_readyBTNPath);
 		_playersContainer = GetNode<VBoxContainer>(_playersContainerPath);
 		_gameStateInfo = GetNode<Label>(_gameStateInfoPath);
+		_disconnectBTN = GetNode<Button>(_disconnectBTNPath);
 	}
 
     public void OnReadyBTNClick() {
         _isPlayerReady = !_isPlayerReady;
         _network.SendReadyState(_isPlayerReady);
     }
+
+	public void OnDisconnectBTNClick() => _network.DisconnectFromServer();
 	public void OnLobbyStateChanged(Godot.Collections.Dictionary<string, object> newState) {
 		GD.Print("Recived state");
 		var timerStarted = (bool)newState["ts"];

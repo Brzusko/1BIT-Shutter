@@ -12,6 +12,7 @@ __meta__ = {
 _readyBTNPath = NodePath("Buttons/ReadyBTN")
 _playersContainerPath = NodePath("PlayersContainer/Players/PlayersHolder")
 _gameStateInfoPath = NodePath("CenterContainer/GameStateInfo")
+_disconnectBTNPath = NodePath("Buttons/DisconnectBTN")
 
 [node name="PlayersContainer" type="MarginContainer" parent="."]
 anchor_left = 1.0
