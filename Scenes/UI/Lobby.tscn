@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/UI/Lobby.cs" type="Script" id=1]
+
+[node name="Lobby" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_readyBTNPath = NodePath("Buttons/ReadyBTN")
+_playersContainerPath = NodePath("PlayersContainer/Players/PlayersHolder")
+_gameStateInfoPath = NodePath("CenterContainer/GameStateInfo")
+
+[node name="PlayersContainer" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.997
+margin_left = -154.0
+margin_top = -0.2
+margin_bottom = -0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Players" type="VBoxContainer" parent="PlayersContainer"]
+margin_right = 154.0
+margin_bottom = 597.0
+
+[node name="Header" type="Label" parent="PlayersContainer/Players"]
+margin_right = 154.0
+margin_bottom = 14.0
+text = "Active Players"
+align = 1
+
+[node name="PlayersHolder" type="VBoxContainer" parent="PlayersContainer/Players"]
+margin_top = 18.0
+margin_right = 154.0
+margin_bottom = 18.0
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 0.998
+anchor_bottom = 0.998
+margin_top = -31.8
+margin_right = 84.0
+margin_bottom = 0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisconnectBTN" type="Button" parent="Buttons"]
+margin_right = 84.0
+margin_bottom = 32.0
+text = "Disconnect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReadyBTN" type="Button" parent="Buttons"]
+margin_left = 88.0
+margin_right = 224.0
+margin_bottom = 32.0
+text = "Change Ready State"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 899.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameStateInfo" type="Label" parent="CenterContainer"]
+margin_left = 449.0
+margin_right = 449.0
+margin_bottom = 14.0
+align = 1
