@@ -19,12 +19,10 @@ public class UIHandler : CanvasLayer
             { nameof(Lobby), GetNode<IUI>("Lobby")}
         };
         _currentUI = _uiScenes[_startingScene];
-        GD.Print(_uiScenes.Count);
     }
 
     public void OnUIChangeRequest(string className) {
         if (!_uiScenes.ContainsKey(className)) return;
-        GD.Print("Here");
         _currentUI?.Disactive();
         _currentUI = _uiScenes[className];
         _currentUI?.Active();
