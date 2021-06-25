@@ -7,29 +7,44 @@ public class Network : Node
 {	
 	[Signal]
 	public delegate void RequestUIChange(string className);
-
 	[Signal]
 	public delegate void LobbyStateChanged(Dictionary<string, object> lobbyState);
+	[Signal]
+	public delegate void DisconnectedFromServer();
 	public bool IsClientConnected {
-		get => _network_peer.GetConnectionStatus() > 0;
+		get => _network_peer == null ? false : _network_peer.GetConnectionStatus() > 0;
 	}
 	public const string _debug_address = "ws://127.0.0.1:7171";
 	public const string _debug_client_name = "Zdzisiek";
 
 	private string _userName;
-	private WebSocketClient _network_peer = new WebSocketClient();
+	private bool _isConnecting = false;
+	private WebSocketClient _network_peer;
 	public void CreateClient(string url = _debug_address, string userName = _debug_client_name) {
+		if(_network_peer == null) _network_peer = new WebSocketClient();
+		if(IsClientConnected) return;
 		var error = _network_peer.ConnectToUrl(url, null, true, null);
 		_network_peer.Connect("connection_succeeded", this, "OnConnection");
+		_network_peer.Connect("connection_failed", this, nameof(OnConnectionFailed));
+		_network_peer.Connect("server_disconnected", this, nameof(OnDisconnectionFromServer));
 		_userName = userName;
 		if (error != Error.Ok) return;
 		GetTree().NetworkPeer = _network_peer;
 	}
 	
 	private void ClearClient() {
-		if(!IsClientConnected) return;
-		_network_peer.DisconnectFromHost();
-		_network_peer.Disconnect("connection_succeeded", this, nameof(OnConnection));
+		if(IsClientConnected) _network_peer.DisconnectFromHost();
+		
+		if(_network_peer != null) {
+			_network_peer.Disconnect("connection_succeeded", this, nameof(OnConnection));
+			_network_peer.Disconnect("connection_failed", this, nameof(OnConnectionFailed));
+			_network_peer.Disconnect("server_disconnected", this, nameof(OnDisconnectionFromServer));
+			GetTree().NetworkPeer = null;
+			_network_peer = null;
+		} 
+
+		EmitSignal(nameof(RequestUIChange), "MainMenu");
+		EmitSignal(nameof(DisconnectedFromServer));
 	}
 
 	public void OnConnection() {
@@ -37,6 +52,9 @@ public class Network : Node
 		SendCredentials();
 	}
 
+	public void OnConnectionFailed() => ClearClient();
+	public void OnDisconnectionFromServer() => ClearClient();
+	public void DisconnectFromServer() => ClearClient();
 
 	#region RPCs
 
