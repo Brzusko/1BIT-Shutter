@@ -10,6 +10,8 @@ public class Network : Node
 	[Signal]
 	public delegate void LobbyStateChanged(Dictionary<string, object> lobbyState);
 	[Signal]
+	public delegate void RequestGameSceneChange(string sceneName, Dictionary<string, object> sceneData);
+	[Signal]
 	public delegate void DisconnectedFromServer();
 	public bool IsClientConnected {
 		get => _network_peer == null ? false : _network_peer.GetConnectionStatus() > 0;
@@ -69,6 +71,9 @@ public class Network : Node
 
 	[Remote]
 	public void ChangeUIScene(string className) => EmitSignal(nameof(RequestUIChange), className);
+
+	[Remote]
+	public void ChangeGameScene(string gameSceneName, Dictionary<string, object> sceneData) => EmitSignal(nameof(RequestGameSceneChange), sceneData);
 
 	public void SendReadyState(bool state) => RpcId(1, "ReciveReadyState", state);
 	public void SendCredentials() {
