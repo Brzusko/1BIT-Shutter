@@ -73,7 +73,7 @@ public class Network : Node
 	public void ChangeUIScene(string className) => EmitSignal(nameof(RequestUIChange), className);
 
 	[Remote]
-	public void ChangeGameScene(string gameSceneName, Dictionary<string, object> sceneData) => EmitSignal(nameof(RequestGameSceneChange), sceneData);
+	public void ChangeGameScene(string gameSceneName, Dictionary<string, object> sceneData) => EmitSignal(nameof(RequestGameSceneChange), gameSceneName, sceneData);
 
 	public void SendReadyState(bool state) => RpcId(1, "ReciveReadyState", state);
 	public void SendCredentials() {
