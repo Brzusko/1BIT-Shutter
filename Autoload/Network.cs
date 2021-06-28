@@ -85,6 +85,7 @@ public class Network : Node
 	
 	public void LobbyLoaded() => RpcId(1, "ClientLoadedLobby");
 	public void ClockSyncFinished() => RpcId(1, "ClientClockSyncFinished");
+	public void GameSceneLoaded() => RpcId(1, "ClientLoadedGameScene");
 	#endregion
 
 	#region Virutal Methods

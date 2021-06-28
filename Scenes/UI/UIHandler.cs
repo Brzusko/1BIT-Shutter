@@ -17,7 +17,8 @@ public class UIHandler : CanvasLayer
         _uiScenes = new Dictionary<string, IUI>{
             { nameof(MainMenu), GetNode<IUI>("MainMenu") },
             { nameof(Lobby), GetNode<IUI>("Lobby") },
-            { nameof(LoadingScreen), GetNode<IUI>("LoadingScreen") }
+            { nameof(LoadingScreen), GetNode<IUI>("LoadingScreen") },
+            { nameof(Game), GetNode<IUI>("Game") }
         };
         _currentUI = _uiScenes[_startingScene];
     }

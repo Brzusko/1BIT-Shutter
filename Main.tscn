@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/UI/UIHandler.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/MainMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/UI/Lobby.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/UI/LoadingScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Main.cs" type="Script" id=5]
+[ext_resource path="res://Scenes/UI/Game.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 5 )
@@ -18,4 +19,7 @@ script = ExtResource( 1 )
 visible = false
 
 [node name="LoadingScreen" parent="UICanvas" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Game" parent="UICanvas" instance=ExtResource( 6 )]
 visible = false
