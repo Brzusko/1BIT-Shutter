@@ -25,6 +25,7 @@ public class Player : KinematicBody2D, ISynchronized
 		GetNode<Camera2D>("Camera2D").Current = _isLocalPlayer;
 	}
 
+	public void SendInput(Vector2 velocity) => RpcId(1, "GetPlayerInput", velocity, Vector2.Zero, false);
 	public void UpdateStartingPosition() {
 		var pos = (Vector2)_currentstate["p"];
 		GlobalPosition = pos;

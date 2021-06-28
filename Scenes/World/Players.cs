@@ -14,4 +14,10 @@ public class Players : Node2D
             playerInstance.UpdateStartingPosition();
         }
     }
+
+    public void ProcessPlayers(Array players) {
+        foreach(var player in players) {
+            
+        }       
+    } 
 }
