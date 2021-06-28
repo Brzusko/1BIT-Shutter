@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 Network="*res://Autoload/Network.tscn"
 Clock="*res://Autoload/Clock.tscn"
+Globals="*res://Autoload/Globals.tscn"
 
 [editor_plugins]
 

@@ -16,13 +16,15 @@ public class UIHandler : CanvasLayer
         _network.Connect("RequestUIChange", this, nameof(OnUIChangeRequest));
         _uiScenes = new Dictionary<string, IUI>{
             { nameof(MainMenu), GetNode<IUI>("MainMenu") },
-            { nameof(Lobby), GetNode<IUI>("Lobby")}
+            { nameof(Lobby), GetNode<IUI>("Lobby") },
+            { nameof(LoadingScreen), GetNode<IUI>("LoadingScreen") }
         };
         _currentUI = _uiScenes[_startingScene];
     }
 
     public void OnUIChangeRequest(string className) {
         if (!_uiScenes.ContainsKey(className)) return;
+        GD.Print("Changing");
         _currentUI?.Disactive();
         _currentUI = _uiScenes[className];
         _currentUI?.Active();

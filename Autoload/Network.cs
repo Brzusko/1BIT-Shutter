@@ -10,10 +10,14 @@ public class Network : Node
 	[Signal]
 	public delegate void LobbyStateChanged(Dictionary<string, object> lobbyState);
 	[Signal]
+	public delegate void RequestGameSceneChange(string sceneName, Dictionary<string, object> sceneData);
+	[Signal]
 	public delegate void DisconnectedFromServer();
 	public bool IsClientConnected {
 		get => _network_peer == null ? false : _network_peer.GetConnectionStatus() > 0;
 	}
+
+	public string UserName { get => _userName; }
 	public const string _debug_address = "ws://127.0.0.1:7171";
 	public const string _debug_client_name = "Zdzisiek";
 
@@ -70,11 +74,13 @@ public class Network : Node
 	[Remote]
 	public void ChangeUIScene(string className) => EmitSignal(nameof(RequestUIChange), className);
 
+	[Remote]
+	public void ChangeGameScene(string gameSceneName, Dictionary<string, object> sceneData) => EmitSignal(nameof(RequestGameSceneChange), gameSceneName, sceneData);
+
 	public void SendReadyState(bool state) => RpcId(1, "ReciveReadyState", state);
 	public void SendCredentials() {
-		RpcId(1, "ReciveClientCredentials", new Credentials {
-			ClientName = _userName,
-		}.ToGodotDict());
+		var credentials = new Credentials { ClientName = _userName };
+		RpcId(1, "ReciveClientCredentials", credentials.ToGodotDict());
 	}
 	
 	public void LobbyLoaded() => RpcId(1, "ClientLoadedLobby");
