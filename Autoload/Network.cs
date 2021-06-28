@@ -16,6 +16,8 @@ public class Network : Node
 	public bool IsClientConnected {
 		get => _network_peer == null ? false : _network_peer.GetConnectionStatus() > 0;
 	}
+
+	public string UserName { get => _userName; }
 	public const string _debug_address = "ws://127.0.0.1:7171";
 	public const string _debug_client_name = "Zdzisiek";
 
@@ -77,9 +79,8 @@ public class Network : Node
 
 	public void SendReadyState(bool state) => RpcId(1, "ReciveReadyState", state);
 	public void SendCredentials() {
-		RpcId(1, "ReciveClientCredentials", new Credentials {
-			ClientName = _userName,
-		}.ToGodotDict());
+		var credentials = new Credentials { ClientName = _userName };
+		RpcId(1, "ReciveClientCredentials", credentials.ToGodotDict());
 	}
 	
 	public void LobbyLoaded() => RpcId(1, "ClientLoadedLobby");
