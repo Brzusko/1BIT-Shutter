@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Player/Assets/chop.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/Player.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Player/Input.cs" type="Script" id=3]
+[ext_resource path="res://Scenes/Player/Assets/baba.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+_secondLook = ExtResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

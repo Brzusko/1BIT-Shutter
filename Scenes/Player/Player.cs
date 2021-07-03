@@ -9,18 +9,21 @@ public class Player : KinematicBody2D, ISynchronized
 	private Network _network;
 	private Dictionary _currentstate;
 	private bool _isLocalPlayer = false;
-
+	[Export]
+	private Texture _secondLook;
 	public void ProcessState(Dictionary state) {
 
 	}
 
 	public void Build(Dictionary data) {
 		_network = GetNode<Network>("/root/Network");
+		var playerSprite = GetNode<Sprite>("Look");
 		_currentstate = data;
 		var playerName = (string)data["n"];
 		var rotation = (float)data["r"];
 		var look = (bool)data["l"];
 		_isLocalPlayer = _network.UserName == playerName;
+		if(look) playerSprite.Texture = _secondLook;
 		Name = playerName;
 		GetNode<Camera2D>("Camera2D").Current = _isLocalPlayer;
 	}

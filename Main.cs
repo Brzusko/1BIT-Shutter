@@ -24,6 +24,7 @@ public class Main : Node2D
         var loadedScene = GD.Load<PackedScene>(_maps[sceneName]);
         var loadedSceneInstance = loadedScene.Instance();
         AddChild(loadedSceneInstance);
+        MoveChild(loadedSceneInstance, 0);
         var sceneAsInterface = (IMap)loadedSceneInstance;
         sceneAsInterface.Setup(sceneData);
         _currentMap = sceneAsInterface;
