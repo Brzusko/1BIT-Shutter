@@ -56,7 +56,7 @@ public class Clock : Node
     [Remote]
     public void RecivePong(ulong serverTime, ulong clientTime) {
         if(!_isSynced) {
-            Time = serverTime + (OS.GetSystemTimeMsecs() - clientTime) / 2;
+            _time = serverTime + (OS.GetSystemTimeMsecs() - clientTime) / 2;
             _rtt = (OS.GetSystemTimeMsecs() - clientTime) / 2;
             GetNode<Network>("/root/Network").ClockSyncFinished();
             _isSynced = true;
@@ -68,7 +68,7 @@ public class Clock : Node
         if(_latenacyList.Count >= _timer_max_iterations) {
             var sum = 0.0f;
             _latenacyList.Sort();
-            var midPoint = _latenacyList[(int)_latenacyList.Count / 2];
+            var midPoint = _latenacyList[(int)(_latenacyList.Count / 2)];
             foreach(var current_letanecy in _latenacyList.Reverse<float>()) {
                 if (current_letanecy >= (2 * midPoint) && current_letanecy >= 50) _latenacyList.Remove(current_letanecy);
                 else sum += current_letanecy;
@@ -92,15 +92,15 @@ public class Clock : Node
 
     public override void _PhysicsProcess(float delta)
     {
-        if (Time == 0) return;
+        if (_time == 0) return;
 
-        Time += (ulong)((delta * 1000) + _deltaLatenacy);
+        _time += (ulong)((delta * 1000) + _deltaLatenacy);
         _reminder += (delta * 100) - (int)(delta * 1000);
 
         _deltaLatenacy -= _deltaLatenacy;
 
         if(_reminder >= 1.0) {
-            Time += 1;
+            _time += 1;
             _reminder -= 1;
         }
     }
